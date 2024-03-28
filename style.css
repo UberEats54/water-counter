@@ -25,6 +25,7 @@ button{
     width: 50px;
     border-radius: 25px;
     border: solid 2px black;
+    text-align: center;
 }
 button:active{
     background-color: cyan;
