@@ -1,20 +1,25 @@
 const totalLabel = document.querySelector("#label");
 const waterAdder = document.querySelector("#waterAdder");
 const waterLeft = document.querySelector("#waterLeft");
+const goalLabel = document.querySelector("#goalS");
+const sliderCount = document.querySelector("#sliderCount");
+const slider = document.querySelector("#slider");
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 const date = new Date();
 d = date.getDay();
 
 let totalWater = parseInt(getCookie('totalWater')) || 0;
-const goal = 3000;
+let goal = parseInt(getCookie('goal')) || 3000;
+goalLabel.textContent = goal;
 
 if(getCookie('day') != d) totalWater = 0;
 console.log(getCookie('day'));
-console.log(d);
 
 ctx.fillStyle = 'cyan';
 fillBar();
+
+setInterval(updateSlider, 10);
 
 document.querySelector("#plusBtn").addEventListener("click", () =>{
     totalWater += Number(waterAdder.value);
@@ -25,6 +30,17 @@ document.querySelector("#plusBtn").addEventListener("click", () =>{
 
     fillBar();
 });
+
+document.querySelector("#setBtn").addEventListener("click", () =>{
+  goal = slider.value;
+  goalLabel.textContent = goal;
+  setCookie('goal', goal, 365);
+  fillBar();
+})
+
+function updateSlider(){
+  sliderCount.textContent = slider.value;
+}
 
 function fillBar(){
   totalLabel.textContent = totalWater;
